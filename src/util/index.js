@@ -18,7 +18,7 @@ module.exports = {
                 .then(() => res.sendStatus(200))
                 .catch(console.log)
         };
-        ns.delete = function(req, res) {
+        ns.remove = function(req, res) {
             conversationService.delete(req.params.id)
                 .then(() => res.sendStatus(200))
                 .catch(console.log)

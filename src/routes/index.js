@@ -9,4 +9,8 @@ module.exports = function(app, passport) {
 		.post(conversationController.add)
 		.delete(conversationController.remove)
 		.patch(conversationController.update)
+	app.route('/messages/:id')
+		.get(conversationController.getList) //get convo list
+		.post(conversationController.addToGroup) //adding user(s) to group
+		.delete(conversationController.removeFromGroup) //removing user(s) from group
 };
