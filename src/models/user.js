@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
+const tables = require('./index').collectionNames;
+const ObjectId = mongoose.Schema.Types.ObjectId;
 
 const UserSchema = mongoose.Schema({
     username: {
@@ -9,11 +11,17 @@ const UserSchema = mongoose.Schema({
     password: {
         type: String,
         hide: true
-    }
+    },
+    groups:[{
+        type: ObjectId,
+        ref: tables.Conversation,
+        default: undefined,
+        autopopulate: true
+    }]
 });
 
 
-module.exports = mongoose.model('user', UserSchema);
+module.exports = mongoose.model(tables.User, UserSchema, tables.User);
 
 module.exports.comparePassword = function (candidatePassword, hash, callback) {
     bcrypt.compare(candidatePassword, hash, function (err, isMatch) {

@@ -17,6 +17,11 @@ mongoose.connect('mongodb://localhost/test', options, function (err) {
 
 mongoose.set('useCreateIndex', true);
 
+mongoose.plugin(schema => {
+   schema.set('timestamps', true);
+});
+mongoose.plugin(require('mongoose-autopopulate'));
+
 //var indexRouter = require('./src/routes/index');
 //var usersRouter = require('./src/routes/users');
 

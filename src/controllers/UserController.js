@@ -1,4 +1,3 @@
-const AuthService = require('../services/AuthService');
 const UserService = require('../services/UserService');
 
 module.exports = {
@@ -18,7 +17,7 @@ module.exports = {
 			.catch(err => {
 				res.sendStatus(400);
 			})
-		
+
 	},
 	onLogin(req, res) {
 		res.send({
