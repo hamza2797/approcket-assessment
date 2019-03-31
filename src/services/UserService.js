@@ -1,10 +1,19 @@
 var User = require('../models/user');
+const BaseService = require('../services/BaseService')
 
+class UserService extends BaseService {
 
-class UserService {
+    constructor() {
+        super(User);
+    }
 
-    static GetUser(data) {
-
+    add(body) {
+        return User.hashPassword(body.password)
+            .then(resp => {
+                console.log(resp);
+                body.password = resp;
+                return new User(body).save();
+            })
     }
 }
-module.exports = UserService;
+module.exports = new UserService();

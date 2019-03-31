@@ -22,21 +22,6 @@ module.exports.comparePassword = function (candidatePassword, hash, callback) {
     });
 }
 
-module.exports.getUserById = function (id, callback) {
-    User.findById(id, callback);
-}
-
-module.exports.getUserByUsername = function (username, callback) {
-    var query = { username: username };
-    User.findOne(query, callback);
-}
-
-module.exports.createUser = function (newUser, callback) {
-    bcrypt.hash(newUser.password, 10, function (err, hash) {
-        if (err) throw err;
-        // Set hashed password
-        newUser.password = hash;
-        //create user
-        newUser.save(callback);
-    });
+module.exports.hashPassword = function (password) {
+    return bcrypt.hash(password, 10);
 }

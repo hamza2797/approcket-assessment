@@ -8,22 +8,24 @@ module.exports = {
 		//req.body
 		//req.validation here
 		var body = {
-			username: "hamza2",
+			username: "hamza212323",
 			password: "lol"
 		}
-		AuthService.signup(body);
-		res.send('lego');
+		UserService.add(body)
+			.then(response => {
+				res.sendStatus(200);
+			})
+			.catch(err => {
+				res.sendStatus(400);
+			})
+		
 	},
 	onLogin(req, res) {
-		UserService.get(req.user._id, true)
-			.select({ username: 1})
-			.then(user => {
-				res.send({
-					user: {
-						id: req.user._id,
-						username: req.username
-					}
-				});
-			})
+		res.send({
+			user: {
+				id: req.user._id,
+				username: req.user.username
+			}
+		});
 	}
 };

@@ -11,12 +11,11 @@ const options = {
    useNewUrlParser: true
 }
 mongoose.connect('mongodb://localhost/test', options, function (err) {
-
    if (err) throw err;
-
    console.log('Successfully connected');
-
 });
+
+mongoose.set('useCreateIndex', true);
 
 //var indexRouter = require('./src/routes/index');
 //var usersRouter = require('./src/routes/users');
