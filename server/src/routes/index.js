@@ -40,7 +40,7 @@ module.exports = function (app, passport) {
 		.delete(publicController.removeUser) //removing user(s) from group
 
 	
-	app.post('/message/add'. messageController.add)
-	app.delete('/message/:id'. messageController.delete)
+	app.post('/message/add', messageController.add)
+	//app.delete('/message/:id', messageController.delete)
 
 };

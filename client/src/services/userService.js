@@ -3,12 +3,14 @@ import history from '../history';
 
 export default class {
 	static login(username, password) {
+		console.log('inside login userservice')
+		console.log(username)
+		console.log(password)
 		const body = {
 			username:username,
 			password:password
 		}
 		return http.post('/login', body)
-			.then(history('/landing'));
 	}
 
 	static logout() {
