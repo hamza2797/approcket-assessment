@@ -6,8 +6,7 @@ class UserService extends BaseService {
     constructor() {
         super(User);
     }
-    get(query, userId) {
-        console.log(userId);
+    search(query, userId) {
         return User.find({ username: { "$regex": query, "$options": "i", $ne: userId  } }).lean()
     }
     add(body) {

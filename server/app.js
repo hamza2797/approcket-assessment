@@ -19,9 +19,9 @@ const io = require('socket.io')();
 //    });
 //  });
 
-// const port = 8000;
-// io.listen(port);
-// console.log('listening on port ', port);
+const port = 8000;
+io.listen(port);
+console.log('listening on port ', port);
 
 
 const options = {
@@ -46,6 +46,12 @@ const passport = require('passport');
 require('./src/security/passport')(passport);
 
 var app = express();
+
+app.use(function(req,res, next){
+	req.io = io;
+	next();
+});
+
 
 app.use(cors())
 

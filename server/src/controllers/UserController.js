@@ -1,8 +1,8 @@
 const UserService = require('../services/UserService');
 
 module.exports = {
-	getUserName(req, res) {
-		UserService.getUsernameById(req.body.id)
+	get(req, res) {
+		UserService.get(req.params.id)
 			.then(response => {
 				console.log(response);
 				res.send(response);
@@ -11,8 +11,8 @@ module.exports = {
 				res.sendStatus(400);
 			})
 	},
-	get(req, res) {
-		UserService.get(req.params.query, req.body.username)
+	search(req, res) {
+		UserService.search(req.body.username, req.user._id)
 			.then(response => {
 				console.log(response);
 				res.send(response);
