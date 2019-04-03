@@ -3,7 +3,7 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const expressValidator = require('express-validator')
-
+const cors = require('cors')
 
 const mongoose = require('mongoose');
 
@@ -16,7 +16,7 @@ mongoose.connect('mongodb://localhost/test', options, function (err) {
 });
 
 mongoose.set('useCreateIndex', true);
-
+mongoose.set('debug', true);
 mongoose.plugin(schema => {
    schema.set('timestamps', true);
 });
@@ -30,6 +30,7 @@ require('./src/security/passport')(passport);
 
 var app = express();
 
+app.use(cors())
 
 app.use(logger('dev'));
 app.use(express.json());

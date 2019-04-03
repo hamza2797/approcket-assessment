@@ -1,16 +1,28 @@
 const UserService = require('../services/UserService');
 
 module.exports = {
-
+	getUserName(req, res) {
+		UserService.getUsernameById(req.body.id)
+			.then(response => {
+				console.log(response);
+				res.send(response);
+			})
+			.catch(err => {
+				res.sendStatus(400);
+			})
+	},
+	get(req, res) {
+		UserService.get(req.params.query, req.body.username)
+			.then(response => {
+				console.log(response);
+				res.send(response);
+			})
+			.catch(err => {
+				res.sendStatus(400);
+			})
+	},
 	onSignUp(req, res) {
-		console.log('here');
-		//req.body
-		//req.validation here
-		var body = {
-			username: "hamza212323",
-			password: "lol"
-		}
-		UserService.add(body)
+		UserService.add(req.body)
 			.then(response => {
 				res.sendStatus(200);
 			})

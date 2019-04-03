@@ -24,15 +24,13 @@ module.exports = function (passport) {
 					return done(null, false, { message: 'Incorrect username.' });
 				}
 				User.comparePassword(password, user.password, function (err, isMatch) {
+					
 					if (err) throw err;
-					if (isMatch) {
-						return done(null, user);
-					}
+					if (isMatch) return done(null, user);
 					else {
 						return done(null, false);
 					}
 				});
-				return done(null, user);
 			});
 		}
 	));

@@ -1,4 +1,6 @@
-var User = require('../models/user');
+//const User = require('../models/user');
+//const conversation = require('../models/conversation');
+
 
 
 class BaseService {
@@ -16,7 +18,8 @@ class BaseService {
     }
 
     add(body) {
-        return this.Model.add(body).lean();
+        console.log('yahan tak');
+        return this.Model(body).save();
     }
 
     update(id, body) {

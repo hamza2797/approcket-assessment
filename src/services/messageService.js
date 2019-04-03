@@ -10,7 +10,7 @@ class messageService extends BaseService {
     getByConversation(id) {
         return this.Model.find({ 'conversationId': id }).lean();
     }
-
+    
     paginate(conversationId, limit, page) {
         return this.Model.paginate(
             { conversationId: id },

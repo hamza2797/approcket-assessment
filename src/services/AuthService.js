@@ -4,7 +4,6 @@ var User = require('../models/user');
 class AuthService {
 
     static signup(data) {
-        console.log(data);
         var user = new User(data);
         return User.createUser(user);
     }

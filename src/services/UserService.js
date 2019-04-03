@@ -6,7 +6,10 @@ class UserService extends BaseService {
     constructor() {
         super(User);
     }
-
+    get(query, userId) {
+        console.log(userId);
+        return User.find({ username: { "$regex": query, "$options": "i", $ne: userId  } }).lean()
+    }
     add(body) {
         return User.hashPassword(body.password)
             .then(resp => {
@@ -14,6 +17,9 @@ class UserService extends BaseService {
                 body.password = resp;
                 return new User(body).save();
             })
+    }
+    getUsernameById(id){
+        return User.find(id).lean()
     }
 }
 module.exports = new UserService();
