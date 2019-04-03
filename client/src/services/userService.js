@@ -1,8 +1,14 @@
 import http from '../util/http';
+import history from '../history';
 
-export const userService = class {
-	static login(obj) {
-		return http.post('/login', obj);
+export default class {
+	static login(username, password) {
+		const body = {
+			username:username,
+			password:password
+		}
+		return http.post('/login', body)
+			.then(history('/landing'));
 	}
 
 	static logout() {

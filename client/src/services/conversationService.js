@@ -1,6 +1,6 @@
 import http from '../util/http';
 
-export const conversationService = class {
+export default class  {
     
     static getConversationsByUserId(id) {
 		return http.get(`/user/conversation/${id}`);
