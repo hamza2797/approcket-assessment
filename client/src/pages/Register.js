@@ -45,7 +45,7 @@ const styles = theme => ({
 	},
 });
 
-class SignIn extends Component {
+class Register extends Component {
 
 	constructor(props) {
 		super(props);
@@ -67,7 +67,7 @@ class SignIn extends Component {
 	    console.log(password);
 	    if(username && password){
 	    	console.log('inside');
-	    	userService.login(username, password)
+	    	userService.register(username, password)
 	    		.catch(console.log)
 	    }
 	}
@@ -83,7 +83,7 @@ class SignIn extends Component {
 				          <LockOutlinedIcon />
 				        </Avatar>
 				        <Typography component="h1" variant="h5">
-				          Sign in
+				          Register
 				        </Typography>
 				        <form className={classes.form}>
 				          <FormControl margin="normal" required fullWidth>
@@ -96,9 +96,9 @@ class SignIn extends Component {
 				          </FormControl>
 									<span>
 										<Link to={{
-															pathname: '/register'
+															pathname: '/'
 													}}>
-											<button type="button" className="btn btn-success">Click here to register</button>
+											<button type="button" className="btn btn-success">Click here to Login</button>
 										</Link>
 									</span>
 				          <Button
@@ -109,7 +109,7 @@ class SignIn extends Component {
 				            className={classes.submit}
 				            onClick={this.onSubmit}
 				          >
-				            Sign in
+				            Register
 				          </Button>
 				        </form>
 				      </Paper>
@@ -118,8 +118,8 @@ class SignIn extends Component {
 	}
 }
 
-SignIn.propTypes = {
+Register.propTypes = {
 	classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(SignIn);
+export default withStyles(styles)(Register);

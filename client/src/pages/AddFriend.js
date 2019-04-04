@@ -5,20 +5,20 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import Checkbox from '@material-ui/core/Checkbox';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
 import TextField from '@material-ui/core/TextField';
 import userService from '../services/userService';
 import conversationService from '../services/conversationService';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import PeopleIcon from '@material-ui/icons/People';
+
 var tempArr = [];
 
 class AddFriend extends React.Component {
 
     state = {
         open: false,
-        userList: [],
-        toAddList: [],
-        name:''
+        name: '',
+        suggestions: []
     };
 
     handleClickOpen = () => {
@@ -26,64 +26,50 @@ class AddFriend extends React.Component {
     };
 
     handleClose = () => {
-        const body = {
-            userList: tempArr,
-            groupName: this.state.name
-        }
-        conversationService.addPublicConversation(body)
-            .then((resp) => {
-                console.log(resp.data._id);
-                conversationService.addUserToGroup(resp.data._id, tempArr);
-            })
         this.setState({ open: false });
     };
+    
 
     handleNameChange = name => event => {
         this.setState({ [name]: event.target.value });
+        this.search();
     };
 
-    handleChange = userId => event => {
-        console.log('array before');
-        console.log(tempArr);
-        console.log('array after')
-        if (tempArr.indexOf(userId) > -1) {
-            console.log('user does exist');
-            var index = tempArr.indexOf(userId);
-            if (index > -1) {
-                tempArr.splice(index, 1);
-            }
-        }
-        else {
-            console.log('user doesnt exists');
-            tempArr.push(userId);
-        }
-        console.log(tempArr)
-    };
-
-    componentDidMount() {
-        userService.getAll()
+    search(){
+        let id = localStorage.getItem('userId');
+        userService.searchUser(this.state.name, id)
             .then((resp) => {
                 console.log(resp.data);
-                this.setState({
-                    userList: resp.data
-                })
+                this.setState({ suggestions: resp.data });
             })
     }
 
-    generateCheckBoxes() {
-        console.log('inside gen')
-        return this.state.userList.map((object, i) => {
-            return <FormControlLabel key={i} control={<Checkbox onChange={this.handleChange(object._id)} />
-            }
-                label={object.username}
-            />
+    handleAdd = idToAdd => {
+        console.log('here = ' + idToAdd)
+        const body = {
+            user1: localStorage.getItem('userId'),
+            user2: idToAdd
+        }
+        conversationService.addPrivateConversation(body);
+    }
+
+    showSuggestions() {
+        let username = localStorage.getItem('username')
+        
+        return this.state.suggestions.map((object, i) => {
+            return  <Button key={i} color="primary" onClick={this.handleAdd(object.username)}>
+                {object.username}
+            </Button>
         });
     }
+
     render() {
         return (
             <div>
                 <Button variant="outlined" color="primary" onClick={this.handleClickOpen}>
-                    Add Friend
+                    <ListItemIcon>
+                        <PeopleIcon />
+                    </ListItemIcon>
                 </Button>
                 <Dialog
                     open={this.state.open}
@@ -91,26 +77,33 @@ class AddFriend extends React.Component {
                     aria-labelledby="alert-dialog-title"
                     aria-describedby="alert-dialog-description"
                 >
-                    <DialogTitle id="alert-dialog-title">Select List of people to add to group</DialogTitle>
+                    <DialogTitle id="alert-dialog-title">Enter User to add</DialogTitle>
                     <DialogContent>
                         <DialogContentText id="alert-dialog-description">
-                        <TextField
-                        id="standard-name"
-                        label="Name"
-                        value={this.state.name}
-                        onChange={this.handleNameChange('name')}
-                        margin="normal"
-                        />
+                            <TextField
+                                id="standard-name"
+                                label="Name"
+                                autoComplete="off"
+                                onChange={this.handleNameChange('name')}
+                                value={this.state.name}
+                                margin="normal"
+                            />
                             <div>
-                                {this.generateCheckBoxes()}
+                            {this.state.suggestions.map(person => (
+                            <ul key={person.username}>
+                                <li>{person.username}</li>
+                                <Button
+                                variant="primary"
+                                onClick={this.handleAdd.bind(this, person._id)}
+                                >
+                                add
+                                </Button>
+                            </ul>
+                            ))}
                             </div>
                         </DialogContentText>
                     </DialogContent>
-                    <DialogActions>
-                        <Button onClick={this.handleClose} color="primary" autoFocus>
-                            Submit
-                        </Button>
-                    </DialogActions>
+
                 </Dialog>
             </div>
         );

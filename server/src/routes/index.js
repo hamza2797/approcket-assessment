@@ -10,8 +10,8 @@ module.exports = function (app, passport) {
 	
 	
 	app.get('/user/all', UserController.getAll);
-	app.post('/user/:id', UserController.get);
 	app.post('/user/search', UserController.search);
+	app.post('/user/:id', UserController.get);
 	app.route('/user/conversation/:id')
 		.get(conversationController.getList) //get convo list
 

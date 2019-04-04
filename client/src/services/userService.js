@@ -34,8 +34,12 @@ export default class {
         return http.get('/user/all');
     }
 
-    static searchUser(username){
-        return http.get('/user/search')
+    static searchUser(username,id){
+		const body = {
+			username:username,
+			userId:id
+		}
+        return http.post('/user/search', body);
     }
 
 

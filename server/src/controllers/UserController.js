@@ -12,7 +12,9 @@ module.exports = {
 			})
 	},
 	search(req, res) {
-		UserService.search(req.body.username, req.user._id)
+		console.log('here');
+		console.log(req.body);
+		UserService.search(req.body.username, req.body.userId)
 			.then(response => {
 				console.log(response);
 				res.send(response);

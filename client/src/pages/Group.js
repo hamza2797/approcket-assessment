@@ -11,6 +11,8 @@ import TextField from '@material-ui/core/TextField';
 import userService from '../services/userService';
 import conversationService from '../services/conversationService';
 var tempArr = [];
+var id = localStorage.getItem('userId');
+tempArr.push(id)
 
 class Group extends React.Component {
 
@@ -26,15 +28,17 @@ class Group extends React.Component {
     };
 
     handleClose = () => {
-        const body = {
-            userList: tempArr,
-            groupName: this.state.name
+        if(this.state.name){
+            const body = {
+                userList: tempArr,
+                groupName: this.state.name
+            }
+            conversationService.addPublicConversation(body)
+                .then((resp) => {
+                    console.log(resp.data._id);
+                    conversationService.addUserToGroup(resp.data._id, tempArr);
+                })
         }
-        conversationService.addPublicConversation(body)
-            .then((resp) => {
-                console.log(resp.data._id);
-                conversationService.addUserToGroup(resp.data._id, tempArr);
-            })
         this.setState({ open: false });
     };
 
@@ -43,21 +47,15 @@ class Group extends React.Component {
     };
 
     handleChange = userId => event => {
-        console.log('array before');
-        console.log(tempArr);
-        console.log('array after')
         if (tempArr.indexOf(userId) > -1) {
-            console.log('user does exist');
             var index = tempArr.indexOf(userId);
             if (index > -1) {
                 tempArr.splice(index, 1);
             }
         }
         else {
-            console.log('user doesnt exists');
             tempArr.push(userId);
         }
-        console.log(tempArr)
     };
 
     componentDidMount() {
@@ -72,8 +70,11 @@ class Group extends React.Component {
 
     generateCheckBoxes() {
         console.log('inside gen')
+        let username = localStorage.getItem('username');
         return this.state.userList.map((object, i) => {
-            return <FormControlLabel key={i} control={<Checkbox onChange={this.handleChange(object._id)} />}label={object.username}/>
+            if(object.username !== username){
+                return <FormControlLabel key={i} control={<Checkbox onChange={this.handleChange(object._id)} />}label={object.username}/>
+            }
         });
     }
     render() {

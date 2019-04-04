@@ -18,7 +18,7 @@ import MessageList from "./MessageList";
 import Group from "./Group";
 import AddFriend from "./AddFriend";
 import '../assets/App.css';
-
+import {Redirect} from 'react-router-dom'
 
 const drawerWidth = 240;
 
@@ -98,7 +98,7 @@ const styles = theme => ({
     marginBottom: theme.spacing.unit * 2,
   },
 });
-
+let localName = '';
 class Dashboard extends React.Component {
 
   constructor (props){
@@ -107,6 +107,7 @@ class Dashboard extends React.Component {
         conversationId:'',
         open: true
       };
+      localName = localStorage.getItem('username');
   }
 
   handleDrawerOpen = () => {
@@ -127,7 +128,10 @@ class Dashboard extends React.Component {
 
   render() {
     const { classes } = this.props;
-
+    if (!localName){
+      console.log('in if')
+      return <Redirect to='/'/>
+    }
     return (
       <div className={classes.root}>
         <CssBaseline />
