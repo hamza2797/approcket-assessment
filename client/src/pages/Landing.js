@@ -11,12 +11,14 @@ import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import Badge from '@material-ui/core/Badge';
 import MenuIcon from '@material-ui/icons/Menu';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import ListItems from './listItems';
 import InputArea from "./InputArea";
 import MessageList from "./MessageList";
+import Group from "./Group";
+import AddFriend from "./AddFriend";
 import '../assets/App.css';
+
 
 const drawerWidth = 240;
 
@@ -169,9 +171,8 @@ class Dashboard extends React.Component {
           open={this.state.open}
         >
           <div className={classes.toolbarIcon}>
-            <IconButton onClick={this.handleDrawerClose}>
-              <ChevronLeftIcon />
-            </IconButton>
+            <Group/>
+            <AddFriend/>
           </div>
           <Divider />
           <ListItems triggerParentUpdate={this.updateConversationId.bind(this)}/>

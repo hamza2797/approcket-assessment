@@ -38,5 +38,14 @@ module.exports = {
 				username: req.user.username
 			}
 		});
+	},
+	getAll(req, res){
+		UserService.getAll()
+			.then(response => {
+				res.send(response);
+			})
+			.catch(err => {
+				res.sendStatus(400);
+			})
 	}
 };

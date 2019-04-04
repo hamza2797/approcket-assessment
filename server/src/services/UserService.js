@@ -20,5 +20,8 @@ class UserService extends BaseService {
     getUsernameById(id){
         return User.find(id).lean()
     }
+    getAll(){
+        return User.find({}).lean()
+    }
 }
 module.exports = new UserService();

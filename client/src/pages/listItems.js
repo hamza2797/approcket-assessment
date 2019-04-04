@@ -32,15 +32,22 @@ class ListItems extends React.Component {
     console.log('yolo ing hard')
     let username = localStorage.getItem('username');
     return this.state.list.map((object, i) => {
-      if (object.user1.username === username) {
-        return <ListItem button key={i} onClick={() => this.props.triggerParentUpdate(object._id)}>
-          <ListItemText primary={object.user2.username} />
-        </ListItem>
+      if(object.__t === 'private'){
+        if (object.user1.username === username) {
+          return <ListItem button key={i} onClick={() => this.props.triggerParentUpdate(object._id)}>
+            <ListItemText primary={object.user2.username} />
+          </ListItem>
+        }
+        else{
+          return <ListItem button key={i} onClick={() => this.props.triggerParentUpdate(object._id)}>
+            <ListItemText primary={object.user1.username} />
+          </ListItem>
+        }
       }
       else{
         return <ListItem button key={i} onClick={() => this.props.triggerParentUpdate(object._id)}>
-          <ListItemText primary={object.user1.username} />
-        </ListItem>
+            <ListItemText primary={object.groupName} />
+          </ListItem>
       }
     });
   }

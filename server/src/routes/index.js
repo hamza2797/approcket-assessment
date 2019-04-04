@@ -9,7 +9,7 @@ module.exports = function (app, passport) {
 	app.post('/login', passport.authenticate('local-login'), UserController.onLogin);
 	
 	
-
+	app.get('/user/all', UserController.getAll);
 	app.post('/user/:id', UserController.get);
 	app.post('/user/search', UserController.search);
 	app.route('/user/conversation/:id')

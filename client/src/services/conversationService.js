@@ -10,30 +10,29 @@ export default class  {
 		return http.get(`/conversation/${id}/messages`);
 	}
 
-	static getPrivateConversation(id) {
-		return http.get(`/conversation/private/${id}`);
+	  static getPrivateConversation(id) {
+		  return http.get(`/conversation/private/${id}`);
     }
 
     static addPrivateConversation(body) {
-		return http.post(`/conversation/private/`, body);
+		  return http.post(`/conversation/private/`, body);
     }
     
     static getPublicConversation(id) {
-		return http.get(`/conversation/public/${id}`);
+		  return http.get(`/conversation/public/${id}`);
     }
 
     static addPublicConversation(body) {
-		return http.post(`/conversation/public/`, body);
+		  return http.post(`/conversation/public/`, body);
     }
 
     static updatePublicConversation(id, body) {
-		return http.patch(`/conversation/public/${id}`, body);
+	  	return http.patch(`/conversation/public/${id}`, body);
     }
 
     static addUserToGroup(id, userList) {
-		return http.post(`/conversation/public/${id}/user`, userList);
+	  	return http.post(`/conversation/public/${id}/user`, userList);
     }
-  
     
     static getUser(id){
         return http.get('/user/:id');

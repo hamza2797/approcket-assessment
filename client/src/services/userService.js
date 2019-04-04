@@ -28,6 +28,10 @@ export default class {
     
     static get(id){
         return http.get('/user/:id');
+	}
+	
+	static getAll(){
+        return http.get('/user/all');
     }
 
     static searchUser(username){
