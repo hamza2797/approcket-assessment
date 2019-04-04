@@ -2,43 +2,77 @@ import React from 'react';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import conversationService from '../services/conversationService';
-let list = [];
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+import Icon from '@material-ui/core/Icon';
+import PropTypes from 'prop-types';
+
+import { withStyles } from '@material-ui/core/styles';
+
+const styles = theme => ({
+  button: {
+    margin: theme.spacing.unit,
+  },
+  leftIcon: {
+    marginRight: theme.spacing.unit,
+  },
+  rightIcon: {
+    marginLeft: theme.spacing.unit,
+  },
+  iconSmall: {
+    fontSize: 20,
+  },
+});
 
 
-function getConversations(){
-  let id = localStorage.getItem('userId');
-  console.log(id);
-  conversationService.getConversationsByUserId(id)
-    .then(resp => {
-      list = resp.data;
-    })
+
+class InputArea extends React.Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      list: []
+    }
+  }
+
+  componentDidMount() {
+    
+  }
+
+  handleClick(id){
+    console.log('here = ' + id);
+  }
+
+  
+  render() {
+    const { classes } = this.props;
+    return (
+      <div>
+        <TextField
+          id="standard-full-width"
+          label="Label"
+          style={{ margin: 8 }}
+          placeholder="Placeholder"
+          helperText="Full width!"
+          fullWidth
+          margin="normal"
+          InputLabelProps={{
+            shrink: true,
+          }}
+        />
+        <Button variant="contained" color="primary" className={classes.button}>
+          Send
+          {/* This Button uses a Font Icon, see the installation instructions in the docs. */}
+          <Icon className={classes.rightIcon}>send</Icon>
+        </Button>
+      </div>
+    );
+  }
+
 }
 
-function generateConversations(data){
-  console.log(list);
-  return <ListItem button>
-    <ListItemText primary="Dashboard" />
-  </ListItem>
-}
+InputArea.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
 
-export const mainListItems = (
-  <div>
-    {getConversations()}
-    {generateConversations()}
-    <ListItem button>
-      <ListItemText primary="Dashboard" />
-    </ListItem>
-    <ListItem button>
-      <ListItemText primary="Orders" />
-    </ListItem>
-    <ListItem button>
-      <ListItemText primary="Customers" />
-    </ListItem>
-    <ListItem button>
-      <ListItemText primary="Reports" />
-    </ListItem>
-    <ListItem button>
-      <ListItemText primary="Integrations" />
-    </ListItem>
-  </div>
-);
+export default withStyles(styles)(InputArea);
