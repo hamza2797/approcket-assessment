@@ -18,12 +18,9 @@ export default class {
 			})
 	}
 
-	static logout() {
-		return http.get('/logout');
-	}
-
 	static register(obj) {
-		return http.post(`/signup`);
+		console.log('inside reg')
+		return http.post('/signup', obj);
     }
     
     static get(id){
