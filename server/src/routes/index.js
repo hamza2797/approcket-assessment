@@ -9,12 +9,7 @@ module.exports = function (app, passport) {
 	app.post('/login', passport.authenticate('local-login'), UserController.onLogin);
 	
 	
-	app.use(function(req, res, next) {
-		if (req.isAuthenticated()) next();
-		else res.sendStatus(401);
-	});
-	
-	
+
 	app.post('/user/:id', UserController.get);
 	app.post('/user/search', UserController.search);
 	app.route('/user/conversation/:id')

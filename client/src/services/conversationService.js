@@ -33,11 +33,7 @@ export default class  {
     static addUserToGroup(id, userList) {
 		return http.post(`/conversation/public/${id}/user`, userList);
     }
-
-    static addUserToGroup(id, userList) {
-		return http.post(`/conversation/public/${id}/user`, userList);
-    }
-    
+  
     
     static getUser(id){
         return http.get('/user/:id');

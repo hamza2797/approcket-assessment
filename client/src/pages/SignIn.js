@@ -11,7 +11,6 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
 import userService from '../services/userService';
-import history from '../history';
 
 
 const styles = theme => ({
@@ -69,9 +68,6 @@ class SignIn extends Component {
 	    if(username && password){
 	    	console.log('inside');
 	    	userService.login(username, password)
-	    		.then((resp) => {
-					history.push('/landing')
-	    		})
 	    		.catch(console.log)
 	    }
 	}

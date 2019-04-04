@@ -11,6 +11,11 @@ export default class {
 			password:password
 		}
 		return http.post('/login', body)
+			.then((resp) => {
+				localStorage.setItem('username', resp.data.user.username);
+          		localStorage.setItem('userId', resp.data.user.id);
+				history.push('/landing')
+			})
 	}
 
 	static logout() {
