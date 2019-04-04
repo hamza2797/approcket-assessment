@@ -2,6 +2,8 @@ import React from 'react';
 import TextField from '@material-ui/core/TextField';
 import PropTypes from 'prop-types';
 import withStyles from '@material-ui/core/styles/withStyles';
+import messageService from '../services/messageService';
+
 const styles = theme => ({
   container: {
     display: 'flex',
@@ -26,21 +28,39 @@ class InputArea extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      conversationId:'',
       text: ''
     }
   }
 
-  componentDidMount() {
-    
-  }
 
   handleChange = name => event => {
     this.setState({ [name]: event.target.value });
   };
 
+  componentWillReceiveProps(newProps) {
+    console.log('yooohoooo')
+    this.setState({
+      conversationId:newProps.conversationIdFromParent
+    })
+  }
+
+
   onSubmit = (e) => {
 		e.preventDefault();
-		console.log('on submit');
+    console.log('on submit');    
+    console.log(this.state.conversationId); 
+    console.log(this.state.text); 
+    let id = localStorage.getItem('userId');
+    const body = {
+      conversationId: this.state.conversationId,
+      sender: id,
+      text:this.state.text
+    }
+    messageService.add(body);
+    this.setState({
+      text: ''
+    })
 	}
   
   render() {
@@ -52,7 +72,8 @@ class InputArea extends React.Component {
           id="standard-full-width"
           required
           name='text'
-          label="Label"
+          value={this.state.text}
+          label="message"
           style={{ margin: 8 }}
           placeholder="text here"
           helperText="press enter to send"

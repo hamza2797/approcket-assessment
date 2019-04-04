@@ -15,6 +15,8 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import ListItems from './listItems';
 import InputArea from "./InputArea";
+import MessageList from "./MessageList";
+import '../assets/App.css';
 
 const drawerWidth = 240;
 
@@ -114,7 +116,7 @@ class Dashboard extends React.Component {
   };
 
   updateConversationId(id){
-    console.log('updateConversationId')
+    console.log('in updateConversationId')
     console.log(id)
     this.setState({
       conversationId:id
@@ -176,7 +178,8 @@ class Dashboard extends React.Component {
         </Drawer>
         <main className={classes.content}>
           <div className={classes.appBarSpacer} />
-          <InputArea/>
+          <MessageList conversationIdFromParent={this.state.conversationId}/>
+          <InputArea conversationIdFromParent={this.state.conversationId}/>
           <div className={classes.tableContainer}>
           </div>
         </main>

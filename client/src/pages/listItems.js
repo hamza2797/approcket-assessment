@@ -29,6 +29,7 @@ class ListItems extends React.Component {
 
   getConversations() {
     console.log(this.state.list);
+    console.log('yolo ing hard')
     let username = localStorage.getItem('username');
     return this.state.list.map((object, i) => {
       if (object.user1.username === username) {
@@ -37,7 +38,7 @@ class ListItems extends React.Component {
         </ListItem>
       }
       else{
-        return <ListItem button key={i}>
+        return <ListItem button key={i} onClick={() => this.props.triggerParentUpdate(object._id)}>
           <ListItemText primary={object.user1.username} />
         </ListItem>
       }
