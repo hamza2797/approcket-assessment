@@ -14,6 +14,7 @@
     "cors": "^2.8.5",
     "debug": "~2.6.9",
     "express": "~4.16.0",
+    "express-session": "^1.15.6",
     "express-validator": "^5.3.1",
     "express.io": "^1.1.13",
     "http-errors": "~1.6.2",

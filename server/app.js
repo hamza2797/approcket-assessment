@@ -5,7 +5,7 @@ const logger = require('morgan');
 const expressValidator = require('express-validator')
 const cors = require('cors')
 const mongoose = require('mongoose');
-
+const session = require('express-session');
 
 const io = require('socket.io')();
 
@@ -33,7 +33,6 @@ mongoose.connect('mongodb://localhost/test', options, function (err) {
 });
 
 mongoose.set('useCreateIndex', true);
-mongoose.set('debug', true);
 mongoose.plugin(schema => {
    schema.set('timestamps', true);
 });
@@ -65,6 +64,11 @@ app.use(expressValidator())
 //app.use('/', indexRouter);
 //app.use('/users', usersRouter);
 
+app.use(session({
+   secret: 'abcdefg',
+   resave: true,
+   saveUninitialized: false
+}));
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 

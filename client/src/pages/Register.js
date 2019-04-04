@@ -67,7 +67,11 @@ class Register extends Component {
 	    console.log(password);
 	    if(username && password){
 	    	console.log('inside');
-	    	userService.register(username, password)
+	    	const body = {
+	    		username:username,
+	    		password:password
+	    	}
+	    	userService.register(body)
 	    		.catch(console.log)
 	    }
 	}

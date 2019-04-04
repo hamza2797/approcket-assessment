@@ -19,7 +19,7 @@ export default class {
 	}
 
 	static register(obj) {
-		console.log('inside reg')
+		console.log(obj);
 		return http.post('/signup', obj);
     }
     

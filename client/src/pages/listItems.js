@@ -14,7 +14,7 @@ class ListItems extends React.Component {
 
   componentDidMount() {
     let id = localStorage.getItem('userId');
-    console.log(id);
+    
     conversationService.getConversationsByUserId(id)
       .then(resp => {
         this.setState({
@@ -28,8 +28,6 @@ class ListItems extends React.Component {
   }
 
   getConversations() {
-    console.log(this.state.list);
-    console.log('yolo ing hard')
     let username = localStorage.getItem('username');
     return this.state.list.map((object, i) => {
       if(object.__t === 'private'){

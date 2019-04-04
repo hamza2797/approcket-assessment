@@ -3,7 +3,7 @@ import { Switch, Router, Route } from 'react-router-dom';
 import history from './history';
 import login from './pages/SignIn.js';
 import landing from './pages/Landing.js';
-import register from './pages/register.js';
+import register from './pages/Register.js';
 
 class App extends Component { 
   render() {

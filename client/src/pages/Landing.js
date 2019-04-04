@@ -18,7 +18,12 @@ import MessageList from "./MessageList";
 import Group from "./Group";
 import AddFriend from "./AddFriend";
 import '../assets/App.css';
-import {Redirect} from 'react-router-dom'
+import { Redirect } from 'react-router-dom'
+
+import openSocket from 'socket.io-client';
+
+
+
 
 const drawerWidth = 240;
 
@@ -101,15 +106,24 @@ const styles = theme => ({
 let localName = '';
 class Dashboard extends React.Component {
 
-  constructor (props){
+  constructor(props) {
     super(props);
     this.state = {
-        conversationId:'',
-        open: true
-      };
-      localName = localStorage.getItem('username');
+      conversationId: '',
+      open: true
+    };
+    localName = localStorage.getItem('username');
   }
 
+  componentDidMount() {
+    const socket = openSocket('http://localhost:8000');
+    const id = localStorage.getItem('userId');
+    console.log(id);
+    socket.on(id, function (message) {
+      console.log(message);
+      console.log('user disconnected');
+    });
+  }
   handleDrawerOpen = () => {
     this.setState({ open: true });
   };
@@ -118,19 +132,17 @@ class Dashboard extends React.Component {
     this.setState({ open: false });
   };
 
-  updateConversationId(id){
-    console.log('in updateConversationId')
-    console.log(id)
+  updateConversationId(id) {
     this.setState({
-      conversationId:id
+      conversationId: id
     })
   }
 
   render() {
     const { classes } = this.props;
-    if (!localName){
+    if (!localName) {
       console.log('in if')
-      return <Redirect to='/'/>
+      return <Redirect to='/' />
     }
     return (
       <div className={classes.root}>
@@ -175,16 +187,16 @@ class Dashboard extends React.Component {
           open={this.state.open}
         >
           <div className={classes.toolbarIcon}>
-            <Group/>
-            <AddFriend/>
+            <Group />
+            <AddFriend />
           </div>
           <Divider />
-          <ListItems triggerParentUpdate={this.updateConversationId.bind(this)}/>
+          <ListItems triggerParentUpdate={this.updateConversationId.bind(this)} />
         </Drawer>
         <main className={classes.content}>
           <div className={classes.appBarSpacer} />
-          <MessageList conversationIdFromParent={this.state.conversationId}/>
-          <InputArea conversationIdFromParent={this.state.conversationId}/>
+          <MessageList conversationIdFromParent={this.state.conversationId} />
+          <InputArea conversationIdFromParent={this.state.conversationId} />
           <div className={classes.tableContainer}>
           </div>
         </main>
