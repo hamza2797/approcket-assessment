@@ -13,7 +13,6 @@ import Badge from '@material-ui/core/Badge';
 import MenuIcon from '@material-ui/icons/Menu';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import ListItems from './listItems';
-import InputArea from "./InputArea";
 import MessageList from "./MessageList";
 import Group from "./Group";
 import AddFriend from "./AddFriend";
@@ -112,17 +111,17 @@ class Dashboard extends React.Component {
     this.state = {
       conversationId: '',
       open: true,
-      message:{}
+      message: {}
     };
     localName = localStorage.getItem('username');
   }
-  
+
   componentDidMount() {
     const socket = openSocket('http://localhost:8000');
     const id = localStorage.getItem('userId');
     socket.on(id, (message) => {
       this.setState({
-        message:message
+        message: message
       });
     });
   }
@@ -135,6 +134,7 @@ class Dashboard extends React.Component {
   };
 
   updateConversationId(id) {
+    console.log(id);
     this.setState({
       conversationId: id
     })
@@ -142,6 +142,11 @@ class Dashboard extends React.Component {
 
   render() {
     const { classes } = this.props;
+    let messageComponent;
+    
+    if (this.state.conversationId) {
+      messageComponent = <MessageList conversationIdFromParent={this.state.conversationId} messageFromParent={this.state.message} />        
+    } 
     if (!localName) {
       console.log('in if')
       return <Redirect to='/' />
@@ -197,9 +202,7 @@ class Dashboard extends React.Component {
         </Drawer>
         <main className={classes.content}>
           <div className={classes.appBarSpacer} />
-          <MessageList conversationIdFromParent={this.state.conversationId} messageFromParent={this.state.message}/>
-          
-          <InputArea conversationIdFromParent={this.state.conversationId} />
+          {messageComponent}
           <div className={classes.tableContainer}>
           </div>
         </main>

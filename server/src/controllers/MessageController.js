@@ -14,10 +14,12 @@ module.exports = {
             .catch(err => console.log)
     },
     async add(req, res) {
-        console.log(req.body);
         const result = await messageService.add(req.body);
-        res.sendStatus(200);
         const conversationId = req.body.conversationId;
+        await conversationService.update(conversationId,{updatedAt:new Date()})
+        
+        res.sendStatus(200);
+        
         if (conversationId) {
             conversationService.get(conversationId)
                 .then(resp => {

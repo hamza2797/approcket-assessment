@@ -1,7 +1,7 @@
 import React from 'react';
 import conversationService from '../services/conversationService';
-
-
+import InputArea from "./InputArea";
+import messageService from '../services/messageService';
 
 class MessageList extends React.Component {
 
@@ -27,7 +27,7 @@ class MessageList extends React.Component {
   }
   
 
-  alo() {
+  generateMessageList() {
     
     let id = localStorage.getItem('userId');
     
@@ -43,11 +43,30 @@ class MessageList extends React.Component {
     });
   }
 
+  addMessage(text){
+    let id = localStorage.getItem('userId');
+    const body = {
+      conversationId: this.state.conversationId,
+      sender: id,
+      text:text
+    }
+    console.log(body);
+    messageService.add(body)
+  }
+
   render() {
-    
+    let inputComponent;
+ 
+    if (this.state.conversationId) {
+      inputComponent = <InputArea  conversationIdFromParent={this.state.conversationId} triggerParentUpdate={this.addMessage.bind(this)} />
+    } 
     return (
       <div>
-          <h1>{this.alo()}</h1>
+          <h1>{this.generateMessageList()}</h1>
+          <div className="message-input">
+            {inputComponent}
+          </div>
+          
       </div>
     );
   }

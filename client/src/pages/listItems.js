@@ -8,13 +8,13 @@ class ListItems extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      list: []
+      list: [],
+      isFirstIdUpdate: false
     }
   }
 
   componentDidMount() {
     let id = localStorage.getItem('userId');
-    
     conversationService.getConversationsByUserId(id)
       .then(resp => {
         this.setState({
@@ -23,31 +23,43 @@ class ListItems extends React.Component {
       })
   }
 
-  handleClick(id){
+  handleClick(id) {
     console.log('here = ' + id);
   }
 
+
+
   getConversations() {
     let username = localStorage.getItem('username');
-    return this.state.list.map((object, i) => {
-      if(object.__t === 'private'){
-        if (object.user1.username === username) {
-          return <ListItem button key={i} onClick={() => this.props.triggerParentUpdate(object._id)}>
-            <ListItemText primary={object.user2.username} />
-          </ListItem>
+    if (!this.state.isFirstIdUpdate && this.state.list && this.state.list.length > 0) {
+      console.log('here');
+      this.props.triggerParentUpdate(this.state.list[0]._id);
+      this.setState({
+        isFirstIdUpdate: true
+      })
+    }
+    if (this.state.list && this.state.list.length > 0) {
+      return this.state.list.map((object, i) => {
+        if (object.__t === 'private') {
+          if (object.user1.username === username) {
+            return <ListItem button key={i} onClick={() => this.props.triggerParentUpdate(object._id)}>
+              <ListItemText primary={object.user2.username} />
+            </ListItem>
+          }
+          else {
+            return <ListItem button key={i} onClick={() => this.props.triggerParentUpdate(object._id)}>
+              <ListItemText primary={object.user1.username} />
+            </ListItem>
+          }
         }
-        else{
+        else {
           return <ListItem button key={i} onClick={() => this.props.triggerParentUpdate(object._id)}>
-            <ListItemText primary={object.user1.username} />
-          </ListItem>
-        }
-      }
-      else{
-        return <ListItem button key={i} onClick={() => this.props.triggerParentUpdate(object._id)}>
             <ListItemText primary={object.groupName} />
           </ListItem>
-      }
-    });
+        }
+      });
+    }
+
   }
   render() {
     return (

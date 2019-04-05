@@ -12,7 +12,7 @@ const styles = theme => ({
   textField: {
     marginLeft: theme.spacing.unit,
     marginRight: theme.spacing.unit,
-    width: 200,
+    width: 200
   },
   dense: {
     marginTop: 19,
@@ -39,7 +39,6 @@ class InputArea extends React.Component {
   };
 
   componentWillReceiveProps(newProps) {
-    console.log('yooohoooo')
     this.setState({
       conversationId:newProps.conversationIdFromParent
     })
@@ -47,17 +46,8 @@ class InputArea extends React.Component {
 
 
   onSubmit = (e) => {
-		e.preventDefault();
-    console.log('on submit');    
-    console.log(this.state.conversationId); 
-    console.log(this.state.text); 
-    let id = localStorage.getItem('userId');
-    const body = {
-      conversationId: this.state.conversationId,
-      sender: id,
-      text:this.state.text
-    }
-    messageService.add(body);
+		e.preventDefault()
+    this.props.triggerParentUpdate(this.state.text);
     this.setState({
       text: ''
     })

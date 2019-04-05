@@ -18,7 +18,13 @@ class conversationService extends BaseService {
             privateConversation.find({ $or: [{ 'user1': id }, { 'user2': id }] }).lean().populate({ path: 'user1 user2', model: 'user', select:'username' }),
             user.findById(id, { _id: 0, groups: 1 }).lean({ autopopulate: { "select": "_id groupName", maxDepth: 1 } })
         ])
-            .then(resp => [...resp[0], ...resp[1].groups]);
+            .then(resp => [...resp[0], ...resp[1].groups])
+            .then(resp => {
+                resp.sort(function(a,b){
+                    return new Date(b.updatedAt) - new Date(a.updatedAt);
+                });
+                return resp;
+            });
     }
 }
 

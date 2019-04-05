@@ -23,7 +23,7 @@ class BaseService {
     }
 
     update(id, body) {
-        return this.Model.updateOne(id, body).lean();
+        return this.Model.updateOne({_id:id}, body).lean();
     }
 
 }
