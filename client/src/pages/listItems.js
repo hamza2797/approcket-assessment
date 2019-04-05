@@ -28,7 +28,6 @@ class ListItems extends React.Component {
     let id = localStorage.getItem('userId');
     conversationService.getConversationsByUserId(id)
       .then(resp => {
-        console.log(resp);
         this.setState({
           list: resp.data
         })

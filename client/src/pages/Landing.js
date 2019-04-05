@@ -147,7 +147,6 @@ class Dashboard extends React.Component {
     })
   }
 
-
   render() {
     const { classes } = this.props;
     let messageComponent;
@@ -195,8 +194,8 @@ class Dashboard extends React.Component {
           open={this.state.open}
         >
           <div className={classes.toolbarIcon}>
-            <Group />
-            <AddFriend />
+            <AddFriend triggerParentUpdate={this.updateConversationId.bind(this)}/>
+            <Group triggerParentUpdate={this.updateConversationId.bind(this)}/>
           </div>
           <Divider />
           <ListItems triggerParentUpdate={this.updateConversationId.bind(this)}/>

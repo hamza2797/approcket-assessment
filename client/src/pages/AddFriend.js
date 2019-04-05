@@ -49,11 +49,15 @@ class AddFriend extends React.Component {
             user1: localStorage.getItem('userId'),
             user2: idToAdd
         }
-        conversationService.addPrivateConversation(body);
+        conversationService.addPrivateConversation(body)
+            .then((resp) => {
+               console.log(resp.data); 
+               this.props.triggerParentUpdate(resp.data._id);
+            });
+        
     }
 
     showSuggestions() {
-
         return this.state.suggestions.map((object, i) => {
             return  <Button key={i} color="primary" onClick={this.handleAdd(object.username)}>
                 {object.username}

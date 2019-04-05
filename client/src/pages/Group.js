@@ -28,19 +28,28 @@ class Group extends React.Component {
     };
 
     handleClose = () => {
+        
+        this.setState({ open: false });
+    };
+
+
+    handleAdd = () => {
         if(this.state.name){
             const body = {
                 userList: tempArr,
                 groupName: this.state.name
             }
             conversationService.addPublicConversation(body)
-                .then((resp) => {
-                    
+                .then((resp) => { 
+                    console.log(resp.data);
                     conversationService.addUserToGroup(resp.data._id, tempArr);
+                    this.props.triggerParentUpdate(resp.data._id);
                 })
         }
-        this.setState({ open: false });
-    };
+    }
+
+
+
 
     handleNameChange = name => event => {
         this.setState({ [name]: event.target.value });
@@ -105,7 +114,7 @@ class Group extends React.Component {
                         </DialogContentText>
                     </DialogContent>
                     <DialogActions>
-                        <Button onClick={this.handleClose} color="primary" autoFocus>
+                        <Button onClick={this.handleAdd.bind(this)} color="primary" autoFocus>
                             Submit
                         </Button>
                     </DialogActions>
