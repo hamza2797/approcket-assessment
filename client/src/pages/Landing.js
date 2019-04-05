@@ -119,14 +119,12 @@ class Dashboard extends React.Component {
     const socket = openSocket('http://localhost:8000');
     const id = localStorage.getItem('userId');
     socket.on(id, (message) => {
-      console.log('user disconnected');
       this.setState({
         message: message
       });
     });
     
     socket.on(localStorage.getItem('userId'), (message) => {
-      console.log('update List');
       this.setState({
         message: message
       });
@@ -141,7 +139,7 @@ class Dashboard extends React.Component {
   };
 
   updateConversationId(id) {
-    console.log('hahaha = ' + id)
+
     this.setState({
       conversationId: id
     })

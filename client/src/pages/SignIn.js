@@ -63,12 +63,12 @@ class SignIn extends Component {
 
 	onSubmit = (e) => {
 		e.preventDefault();
-		console.log('on submit');		
+		
 	    const { username, password } = this.state;
-	    console.log(username);
-	    console.log(password);
+	    
+	    
 	    if(username && password){
-	    	console.log('inside');
+	    	
 	    	userService.login(username, password)
 	    		.catch(console.log)
 	    }
@@ -77,7 +77,7 @@ class SignIn extends Component {
 
 	render() {
 		if (localName) {
-      console.log('in if')
+      
       return <Redirect to='/landing' />
     }
 		const { classes } = this.props;

@@ -61,12 +61,9 @@ class Register extends Component {
 
 	onSubmit = (e) => {
 		e.preventDefault();
-		console.log('on submit');		
+
 	    const { username, password } = this.state;
-	    console.log(username);
-	    console.log(password);
 	    if(username && password){
-	    	console.log('inside');
 	    	const body = {
 	    		username:username,
 	    		password:password

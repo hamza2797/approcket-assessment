@@ -38,20 +38,18 @@ class AddFriend extends React.Component {
         let id = localStorage.getItem('userId');
         userService.searchUser(this.state.name, id)
             .then((resp) => {
-                console.log(resp.data);
+                
                 this.setState({ suggestions: resp.data });
             })
     }
 
     handleAdd = idToAdd => {
-        console.log('here = ' + idToAdd)
         const body = {
             user1: localStorage.getItem('userId'),
             user2: idToAdd
         }
         conversationService.addPrivateConversation(body)
             .then((resp) => {
-               console.log(resp.data); 
                this.props.triggerParentUpdate(resp.data._id);
             });
         

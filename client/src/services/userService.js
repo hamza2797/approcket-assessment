@@ -3,9 +3,6 @@ import history from '../history';
 
 export default class {
 	static login(username, password) {
-		console.log('inside login userservice')
-		console.log(username)
-		console.log(password)
 		const body = {
 			username:username,
 			password:password
@@ -19,7 +16,6 @@ export default class {
 	}
 
 	static register(obj) {
-		console.log(obj);
 		return http.post('/signup', obj)
 			.then((resp) =>{
 				history.push('/')
