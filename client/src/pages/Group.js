@@ -35,7 +35,7 @@ class Group extends React.Component {
             }
             conversationService.addPublicConversation(body)
                 .then((resp) => {
-                    console.log(resp.data._id);
+                    
                     conversationService.addUserToGroup(resp.data._id, tempArr);
                 })
         }
@@ -61,7 +61,7 @@ class Group extends React.Component {
     componentDidMount() {
         userService.getAll()
             .then((resp) => {
-                console.log(resp.data);
+                
                 this.setState({
                     userList: resp.data
                 })
@@ -69,7 +69,7 @@ class Group extends React.Component {
     }
 
     generateCheckBoxes() {
-        console.log('inside gen')
+        
         let username = localStorage.getItem('username');
         return this.state.userList.map((object, i) => {
             if(object.username !== username){

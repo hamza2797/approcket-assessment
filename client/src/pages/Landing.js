@@ -18,7 +18,8 @@ import MessageList from "./MessageList";
 import Group from "./Group";
 import AddFriend from "./AddFriend";
 import '../assets/App.css';
-import { Redirect } from 'react-router-dom'
+import { Redirect } from 'react-router-dom';
+
 
 import openSocket from 'socket.io-client';
 
@@ -110,18 +111,19 @@ class Dashboard extends React.Component {
     super(props);
     this.state = {
       conversationId: '',
-      open: true
+      open: true,
+      message:{}
     };
     localName = localStorage.getItem('username');
   }
-
+  
   componentDidMount() {
     const socket = openSocket('http://localhost:8000');
     const id = localStorage.getItem('userId');
-    console.log(id);
-    socket.on(id, function (message) {
-      console.log(message);
-      console.log('user disconnected');
+    socket.on(id, (message) => {
+      this.setState({
+        message:message
+      });
     });
   }
   handleDrawerOpen = () => {
@@ -195,7 +197,8 @@ class Dashboard extends React.Component {
         </Drawer>
         <main className={classes.content}>
           <div className={classes.appBarSpacer} />
-          <MessageList conversationIdFromParent={this.state.conversationId} />
+          <MessageList conversationIdFromParent={this.state.conversationId} messageFromParent={this.state.message}/>
+          
           <InputArea conversationIdFromParent={this.state.conversationId} />
           <div className={classes.tableContainer}>
           </div>

@@ -1,6 +1,6 @@
 import React from 'react';
 import conversationService from '../services/conversationService';
-import openSocket from 'socket.io-client';
+
 
 
 class MessageList extends React.Component {
@@ -14,6 +14,11 @@ class MessageList extends React.Component {
   }
 
   componentWillReceiveProps(newProps) {
+    if(Object.entries(newProps.messageFromParent).length > 0){
+      this.setState(prevState => ({
+        messagesList: [...prevState.messagesList, newProps.messageFromParent]
+      }))
+    }
     conversationService.getMessagesById(newProps.conversationIdFromParent)
       .then(resp => this.setState({
         messagesList: resp.data,

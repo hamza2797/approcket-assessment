@@ -12,7 +12,8 @@ import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
 import userService from '../services/userService';
 import {Link} from 'react-router-dom'
-
+import { Redirect } from 'react-router-dom';
+let localName = '';
 const styles = theme => ({
 	main: {
 		width: 'auto',
@@ -53,6 +54,7 @@ class SignIn extends Component {
 			username:'',
 			password:''
 		}
+		localName = localStorage.getItem('username');
 	}
 
 	onChange = (e) => {
@@ -74,6 +76,10 @@ class SignIn extends Component {
 
 
 	render() {
+		if (localName) {
+      console.log('in if')
+      return <Redirect to='/landing' />
+    }
 		const { classes } = this.props;
 				return (
 				    <main className={classes.main}>

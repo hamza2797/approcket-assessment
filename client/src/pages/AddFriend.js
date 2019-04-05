@@ -1,7 +1,6 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
@@ -11,7 +10,7 @@ import conversationService from '../services/conversationService';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import PeopleIcon from '@material-ui/icons/People';
 
-var tempArr = [];
+
 
 class AddFriend extends React.Component {
 
@@ -54,8 +53,7 @@ class AddFriend extends React.Component {
     }
 
     showSuggestions() {
-        let username = localStorage.getItem('username')
-        
+
         return this.state.suggestions.map((object, i) => {
             return  <Button key={i} color="primary" onClick={this.handleAdd(object.username)}>
                 {object.username}
@@ -88,7 +86,6 @@ class AddFriend extends React.Component {
                                 value={this.state.name}
                                 margin="normal"
                             />
-                            <div>
                             {this.state.suggestions.map(person => (
                             <ul key={person.username}>
                                 <li>{person.username}</li>
@@ -100,7 +97,6 @@ class AddFriend extends React.Component {
                                 </Button>
                             </ul>
                             ))}
-                            </div>
                         </DialogContentText>
                     </DialogContent>
 
