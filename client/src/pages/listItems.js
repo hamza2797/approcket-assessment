@@ -11,6 +11,7 @@ class ListItems extends React.Component {
       list: [],
       isFirstIdUpdate: false
     }
+
   }
 
   componentDidMount() {
@@ -23,16 +24,23 @@ class ListItems extends React.Component {
       })
   }
 
-  handleClick(id) {
-    console.log('here = ' + id);
+  componentWillReceiveProps(newProps) {
+    let id = localStorage.getItem('userId');
+    conversationService.getConversationsByUserId(id)
+      .then(resp => {
+        console.log(resp);
+        this.setState({
+          list: resp.data
+        })
+      })
   }
 
+  
 
 
   getConversations() {
     let username = localStorage.getItem('username');
     if (!this.state.isFirstIdUpdate && this.state.list && this.state.list.length > 0) {
-      console.log('here');
       this.props.triggerParentUpdate(this.state.list[0]._id);
       this.setState({
         isFirstIdUpdate: true

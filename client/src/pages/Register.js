@@ -72,7 +72,7 @@ class Register extends Component {
 	    		password:password
 	    	}
 	    	userService.register(body)
-	    		.catch(console.log)
+					.catch(console.log)
 	    }
 	}
 

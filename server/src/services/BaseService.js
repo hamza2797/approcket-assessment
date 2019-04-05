@@ -18,7 +18,6 @@ class BaseService {
     }
 
     add(body) {
-        console.log('yahan tak');
         return this.Model(body).save();
     }
 

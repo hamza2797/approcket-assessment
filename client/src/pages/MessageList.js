@@ -11,6 +11,11 @@ class MessageList extends React.Component {
       conversationId:'',
       messagesList:[]
     }
+    conversationService.getMessagesById(this.props.conversationIdFromParent)
+      .then(resp => this.setState({
+        messagesList: resp.data,
+        conversationId:this.props.conversationIdFromParent
+      }))
   }
 
   componentWillReceiveProps(newProps) {
@@ -50,8 +55,11 @@ class MessageList extends React.Component {
       sender: id,
       text:text
     }
-    console.log(body);
     messageService.add(body)
+    this.setState(prevState => ({
+      messagesList: [...prevState.messagesList, body]
+    }))
+    
   }
 
   render() {

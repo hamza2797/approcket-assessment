@@ -20,7 +20,10 @@ export default class {
 
 	static register(obj) {
 		console.log(obj);
-		return http.post('/signup', obj);
+		return http.post('/signup', obj)
+			.then((resp) =>{
+				history.push('/')
+			})
     }
     
     static get(id){

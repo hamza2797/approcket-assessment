@@ -11,7 +11,6 @@ import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import Badge from '@material-ui/core/Badge';
 import MenuIcon from '@material-ui/icons/Menu';
-import NotificationsIcon from '@material-ui/icons/Notifications';
 import ListItems from './listItems';
 import MessageList from "./MessageList";
 import Group from "./Group";
@@ -120,6 +119,14 @@ class Dashboard extends React.Component {
     const socket = openSocket('http://localhost:8000');
     const id = localStorage.getItem('userId');
     socket.on(id, (message) => {
+      console.log('user disconnected');
+      this.setState({
+        message: message
+      });
+    });
+    
+    socket.on(localStorage.getItem('userId'), (message) => {
+      console.log('update List');
       this.setState({
         message: message
       });
@@ -134,21 +141,20 @@ class Dashboard extends React.Component {
   };
 
   updateConversationId(id) {
-    console.log(id);
+    console.log('hahaha = ' + id)
     this.setState({
       conversationId: id
     })
   }
 
+
   render() {
     const { classes } = this.props;
     let messageComponent;
-    
     if (this.state.conversationId) {
-      messageComponent = <MessageList conversationIdFromParent={this.state.conversationId} messageFromParent={this.state.message} />        
+      messageComponent = <MessageList conversationIdFromParent={this.state.conversationId} messageFromParent={this.state.message}/>        
     } 
     if (!localName) {
-      console.log('in if')
       return <Redirect to='/' />
     }
     return (
@@ -177,13 +183,8 @@ class Dashboard extends React.Component {
               noWrap
               className={classes.title}
             >
-              Dashboard
+              Chat App
             </Typography>
-            <IconButton color="inherit">
-              <Badge badgeContent={4} color="secondary">
-                <NotificationsIcon />
-              </Badge>
-            </IconButton>
           </Toolbar>
         </AppBar>
         <Drawer
@@ -198,7 +199,7 @@ class Dashboard extends React.Component {
             <AddFriend />
           </div>
           <Divider />
-          <ListItems triggerParentUpdate={this.updateConversationId.bind(this)} />
+          <ListItems triggerParentUpdate={this.updateConversationId.bind(this)}/>
         </Drawer>
         <main className={classes.content}>
           <div className={classes.appBarSpacer} />

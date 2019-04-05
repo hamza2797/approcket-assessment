@@ -41,10 +41,10 @@ module.exports = {
                         userList.forEach(val => {
                             req.io.emit(val, result);
                         });
+                        req.io.emit(req.body.sender, result);
                     }
                 })
                 .catch(console.log);
         }
-        req.io.emit('tx', { key: "value" });
     }
 };
