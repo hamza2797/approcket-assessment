@@ -4,7 +4,6 @@ module.exports = {
 	get(req, res) {
 		UserService.get(req.params.id)
 			.then(response => {
-				console.log(response);
 				res.send(response);
 			})
 			.catch(err => {
@@ -12,11 +11,9 @@ module.exports = {
 			})
 	},
 	search(req, res) {
-		console.log('here');
-		console.log(req.body);
+
 		UserService.search(req.body.username, req.body.userId)
 			.then(response => {
-				console.log(response);
 				res.send(response);
 			})
 			.catch(err => {

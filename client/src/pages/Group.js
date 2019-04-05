@@ -38,7 +38,6 @@ class Group extends React.Component {
                     conversationService.addUserToGroup(resp.data._id, tempArr);
                     this.props.triggerParentUpdate(resp.data._id);
                 })
-                
         }
         this.setState({ open: false });
     };

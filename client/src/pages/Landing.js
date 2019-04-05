@@ -139,7 +139,6 @@ class Dashboard extends React.Component {
   };
 
   updateConversationId(id) {
-
     this.setState({
       conversationId: id
     })
@@ -149,6 +148,7 @@ class Dashboard extends React.Component {
     const { classes } = this.props;
     let messageComponent;
     if (this.state.conversationId) {
+      console.log('here');
       messageComponent = <MessageList conversationIdFromParent={this.state.conversationId} messageFromParent={this.state.message}/>        
     } 
     if (!localName) {

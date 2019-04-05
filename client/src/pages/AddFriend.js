@@ -38,7 +38,6 @@ class AddFriend extends React.Component {
         let id = localStorage.getItem('userId');
         userService.searchUser(this.state.name, id)
             .then((resp) => {
-                
                 this.setState({ suggestions: resp.data });
             })
     }

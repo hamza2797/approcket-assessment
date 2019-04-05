@@ -24,7 +24,6 @@ module.exports = {
             conversationService.get(conversationId)
                 .then(resp => {
                     let userList = [];
-                    console.log(resp)
                     if (resp.__t == util.ConversationType.PRIVATE) {
                         if (req.body.sender == resp.user1) {
                             userList.push(resp.user2);
@@ -37,7 +36,6 @@ module.exports = {
                         userList = resp.userList.filter(val => val != req.body.senderId);
                     }
                     if (userList.length > 0) {
-                        console.log(userList);
                         userList.forEach(val => {
                             req.io.emit(val, result);
                         });

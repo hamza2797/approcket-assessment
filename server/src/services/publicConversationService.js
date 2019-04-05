@@ -9,7 +9,6 @@ class publicConversationService extends BaseService {
         super(publicConversation)
     }
     addUser(id, userIds) {
-        console.log(userIds);
         const query = check.string(userIds) ? userIds : { $each: userIds };
         return Promise.all([
             publicConversation.updateOne({ id: id }, { $addToSet: { userList: query } }),

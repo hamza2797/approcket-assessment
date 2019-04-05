@@ -18,7 +18,6 @@ class UserService extends BaseService {
     add(body) {
         return User.hashPassword(body.password)
             .then(resp => {
-                console.log(resp);
                 body.password = resp;
                 return new User(body).save();
             })

@@ -13,7 +13,6 @@ class conversationService extends BaseService {
     }
     //getting conversations by userid
     getByUser(id) {
-        console.log(id);
         return Promise.all([
             privateConversation.find({ $or: [{ 'user1': id }, { 'user2': id }] }).lean().populate({ path: 'user1 user2', model: 'user', select:'username' }),
             user.findById(id, { _id: 0, groups: 1 }).lean({ autopopulate: { "select": "_id groupName", maxDepth: 1 } })

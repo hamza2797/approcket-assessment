@@ -10,18 +10,9 @@ const session = require('express-session');
 const io = require('socket.io')();
 
 
-// io.on('connection', (client) => {
-//    client.on('subscribeToTimer', (interval) => {
-//      console.log('client is subscribing to timer with interval ', interval);
-//      setInterval(() => {
-//        client.emit('timer', new Date());
-//      }, interval);
-//    });
-//  });
-
 const port = 8000;
 io.listen(port);
-console.log('listening on port ', port);
+console.log('socket listening on port ', port);
 
 
 const options = {
@@ -29,7 +20,7 @@ const options = {
 }
 mongoose.connect('mongodb://localhost/test', options, function (err) {
    if (err) throw err;
-   console.log('Successfully connected');
+   console.log('DB Successfully connected');
 });
 
 mongoose.set('useCreateIndex', true);
@@ -38,8 +29,7 @@ mongoose.plugin(schema => {
 });
 mongoose.plugin(require('mongoose-autopopulate'));
 
-//var indexRouter = require('./src/routes/index');
-//var usersRouter = require('./src/routes/users');
+
 
 const passport = require('passport');
 require('./src/security/passport')(passport);
@@ -59,10 +49,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(expressValidator())
-//app.use(express.static(path.join(__dirname, 'public')));
 
-//app.use('/', indexRouter);
-//app.use('/users', usersRouter);
 
 app.use(session({
    secret: 'abcdefg',
