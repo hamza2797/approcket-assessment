@@ -17,7 +17,9 @@ import Group from "./Group";
 import AddFriend from "./AddFriend";
 import '../assets/App.css';
 import { Redirect } from 'react-router-dom';
-
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import Broadcast from './Broadcast';
 
 import openSocket from 'socket.io-client';
 
@@ -123,12 +125,20 @@ class Dashboard extends React.Component {
         message: message
       });
     });
-    
+
     socket.on(localStorage.getItem('userId'), (message) => {
       this.setState({
         message: message
       });
     });
+
+    socket.on('broadcast', (message) => {
+      this.setState({
+        message: message,
+        conversationId:'broadcast'
+      });
+    });
+
   }
   handleDrawerOpen = () => {
     this.setState({ open: true });
@@ -147,10 +157,15 @@ class Dashboard extends React.Component {
   render() {
     const { classes } = this.props;
     let messageComponent;
-    if (this.state.conversationId) {
-      console.log('here');
-      messageComponent = <MessageList conversationIdFromParent={this.state.conversationId} messageFromParent={this.state.message}/>        
-    } 
+    
+    if (this.state.conversationId && this.state.conversationId  !== 'broadcast') {
+      
+      messageComponent = <MessageList conversationIdFromParent={this.state.conversationId} messageFromParent={this.state.message} />
+    }
+    else if (this.state.conversationId && this.state.conversationId === 'broadcast') {
+      
+      messageComponent = <Broadcast conversationIdFromParent={this.state.conversationId} messageFromParent={this.state.message} />
+    }
     if (!localName) {
       return <Redirect to='/' />
     }
@@ -192,11 +207,12 @@ class Dashboard extends React.Component {
           open={this.state.open}
         >
           <div className={classes.toolbarIcon}>
-            <AddFriend triggerParentUpdate={this.updateConversationId.bind(this)}/>
-            <Group triggerParentUpdate={this.updateConversationId.bind(this)}/>
+            <AddFriend triggerParentUpdate={this.updateConversationId.bind(this)} />
+            <Group triggerParentUpdate={this.updateConversationId.bind(this)} />
           </div>
           <Divider />
-          <ListItems triggerParentUpdate={this.updateConversationId.bind(this)}/>
+          <ListItems triggerParentUpdate={this.updateConversationId.bind(this)} />
+          <Divider />
         </Drawer>
         <main className={classes.content}>
           <div className={classes.appBarSpacer} />

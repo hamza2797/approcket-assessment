@@ -33,6 +33,7 @@ module.exports = {
     },
     ConversationType: Object.freeze({
         PRIVATE: 'private',
-        PUBLIC: 'public'
+        PUBLIC: 'public',
+        BROADCAST:'broadcast'
     })
 }

@@ -2,6 +2,7 @@ import React from 'react';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import conversationService from '../services/conversationService';
+import Divider from '@material-ui/core/Divider';
 
 class ListItems extends React.Component {
 
@@ -66,12 +67,18 @@ class ListItems extends React.Component {
         }
       });
     }
-
+  }
+  getBroadCast(){
+    return <ListItem button>
+      <ListItemText primary='broadcast' onClick={() => this.props.triggerParentUpdate('broadcast')}/>
+    </ListItem>
   }
   render() {
     return (
       <div>
         {this.getConversations()}
+        <Divider />
+        {this.getBroadCast()}
       </div>
     );
   }

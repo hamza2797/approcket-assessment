@@ -3,6 +3,7 @@ const conversationController = require('../controllers').ConversationController;
 const privateController = require('../controllers').PrivateController;
 const publicController = require('../controllers').PublicController;
 const messageController = require('../controllers').MessageController;
+const broadcastController = require('../controllers').BroadcastController;
 
 module.exports = function (app, passport) {
 	app.post('/signup', UserController.onSignUp);
@@ -37,5 +38,9 @@ module.exports = function (app, passport) {
 	
 	app.post('/message/add', messageController.add)
 	//app.delete('/message/:id', messageController.delete)
+
+	app.route('/broadcast')
+		.get(broadcastController.get)
+		.post(broadcastController.add)
 
 };

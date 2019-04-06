@@ -5,7 +5,7 @@
  */
 
 var app = require('../app');
-var sockets = require('../sockets')
+
 var debug = require('debug')('approcket-assessment:server');
 var http = require('http');
 
@@ -29,7 +29,7 @@ var server = http.createServer(app);
 server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
-//sockets.init(server);
+
 /**
  * Normalize a port into a number, string, or false.
  */
