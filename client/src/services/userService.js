@@ -30,10 +30,10 @@ export default class {
         return http.get('/user/all');
     }
 
-    static searchUser(username,id){
+    static searchUser(query,username){
 		const body = {
-			username:username,
-			userId:id
+			query:query,
+			username:username
 		}
         return http.post('/user/search', body);
     }

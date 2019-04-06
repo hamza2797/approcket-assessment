@@ -1,7 +1,6 @@
 import React from 'react';
 import broadcastService from '../services/broadcastService';
 import InputArea from "./InputArea";
-import messageService from '../services/messageService';
 
 class MessageList extends React.Component {
 

@@ -11,8 +11,7 @@ module.exports = {
 			})
 	},
 	search(req, res) {
-
-		UserService.search(req.body.username, req.body.userId)
+		UserService.search(req.body.query, req.body.username)
 			.then(response => {
 				res.send(response);
 			})

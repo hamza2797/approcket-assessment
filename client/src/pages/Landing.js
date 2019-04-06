@@ -9,7 +9,6 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
-import Badge from '@material-ui/core/Badge';
 import MenuIcon from '@material-ui/icons/Menu';
 import ListItems from './listItems';
 import MessageList from "./MessageList";
@@ -17,8 +16,7 @@ import Group from "./Group";
 import AddFriend from "./AddFriend";
 import '../assets/App.css';
 import { Redirect } from 'react-router-dom';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
+
 import Broadcast from './Broadcast';
 
 import openSocket from 'socket.io-client';

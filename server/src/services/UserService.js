@@ -9,8 +9,8 @@ class UserService extends BaseService {
     constructor() {
         super(User);
     }
-    search(query, userId) {
-        return User.find({ username: { "$regex": query, "$options": "i", $ne: mongoose.Types.ObjectId(userId)  } }).lean()
+    search(query, username) {
+        return User.find({ username: { "$regex": query, "$options": "i", $ne: username  } }).lean()
             .then(resp => {
                 return resp;
             })
